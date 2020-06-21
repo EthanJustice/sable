@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sable</title>
+	</head>
+	<body>
+		<script src="tests/tests.js"></script>
+		<script src="src/index.js"></script>
+		<script>
+			let sable = new Sable(
+				document.body,
+				{
+					attributes: true,
+					attributeOldValue: true,
+					characterData: true,
+					characterDataOldValue: true,
+					childList: true,
+					subtree: true,
+				},
+				{}
+			);
+		</script>
+	</body>
+</html>
