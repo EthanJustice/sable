@@ -5,6 +5,7 @@ setTimeout(() => {
 	document.body.appendChild(p);
 	setTimeout(() => {
 		p.id = 'test';
+		p.dataset.test = 'test';
 	}, 1000);
 }, 2000);
 

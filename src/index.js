@@ -1,14 +1,17 @@
 class Sable {
-	constructor(element, config, options) {
+	constructor(options) {
 		this.observer = new MutationObserver(this.register);
-		this.observer.observe(element, config);
 
 		this.options = Object.assign({
 			// defaults
 		}, options);
 	};
 
+	start(element, config) {
+		this.observer.observe(element, config);
+	}
+
 	register(data, observer) {
-		console.log(data)
+		data.forEach(record => console.log(record))
 	}
 }
