@@ -7,6 +7,10 @@ setTimeout(() => {
 		p.id = 'test';
 		p.dataset.test = 'test';
 	}, 1000);
+
+	setTimeout(() => {
+		p.remove();
+	}, 2000);
 }, 2000);
 
 // utils
