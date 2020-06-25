@@ -8,3 +8,7 @@ sable.start(document.body, {
 	childList: true,
 	subtree: true,
 });
+
+window.addEventListener('sable-change', data => {
+	// ...
+});

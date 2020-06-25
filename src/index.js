@@ -13,6 +13,8 @@ class Sable {
 
 				this.events.push(recordData);
 
+				this._dispatch('sable-change', { detail: recordData }, window);
+
 				return recordData;
 			});
 		}
@@ -36,5 +38,10 @@ class Sable {
 		let id = Math.ceil(Math.random() * 9999999999);
 		this.ids.push(id);
 		return id;
+	};
+
+	_dispatch(event, data, location) {
+		let customEvent = new CustomEvent(event, data);
+		location.dispatchEvent(customEvent);
 	}
 }
