@@ -2,11 +2,19 @@
 
 setTimeout(() => {
 	let p = buildElement('p', 'Generic Test');
-	document.body.appendChild(p);
+	document.body.querySelector('.tests').appendChild(p);
 	setTimeout(() => {
 		p.id = 'test';
 		p.dataset.test = 'test';
 	}, 1000);
+
+	setTimeout(() => {
+		p.id = '';
+	}, 1500);
+
+	setTimeout(() => {
+		p.id = '';
+	}, 1750);
 
 	setTimeout(() => {
 		p.remove();

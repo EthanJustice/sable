@@ -4,12 +4,19 @@ class Sable {
 			data.forEach(record => {
 				let recordData = {
 					change: false,
+					new: '',
+					old: '',
 					uniqueId: this._unique(),
 					target: record.target
 				};
 
 				if (record.addedNodes.length == 0 && record.removedNodes.length != 0) { recordData.change = 'removed-node' }
 				else if (record.addedNodes.length != 0 && record.removedNodes.length == 0) { recordData.change = 'added-node' }
+				else if (record.type == 'attributes') {
+					recordData.change = 'changed-attribute';
+					recordData.old = record.oldValue;
+					recordData.new = record.target[record.attributeName];
+				}
 
 				this.events.push(recordData);
 
