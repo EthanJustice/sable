@@ -18,6 +18,8 @@ setTimeout(() => {
 
 	setTimeout(() => {
 		p.remove();
+		setTimeout(() => sable.stop(), 1000);
+		setTimeout(() => document.body.querySelector('.tests').appendChild(p), 3000);
 	}, 2000);
 }, 2000);
 

@@ -69,6 +69,10 @@ class Sable {
 		this.observer.observe(element, config);
 	};
 
+	stop() {
+		this.observer.disconnect();
+	}
+
 	_unique() {
 		let id = Math.ceil(Math.random() * 9999999999);
 		return id;
@@ -77,5 +81,5 @@ class Sable {
 	_dispatch(event, data, location) {
 		let customEvent = new CustomEvent(event, data);
 		location.dispatchEvent(customEvent);
-	}
+	};
 }
