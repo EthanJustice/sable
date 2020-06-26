@@ -13,7 +13,7 @@ setTimeout(() => {
 	}, 1500);
 
 	setTimeout(() => {
-		p.id = '';
+		p.id = 'test-2';
 	}, 1750);
 
 	setTimeout(() => {
