@@ -17,14 +17,16 @@ class Sable {
 					attribute: '',
 					uniqueId: id,
 					target: record.target,
-					children: ''
+					children: '',
+					index: this.events.length,
+					snapshot: record.target.cloneNode(true)
 				};
 
 				if (record.addedNodes.length == 0 && record.removedNodes.length != 0) {
 					recordData.change = 'removed-node';
 					record.removedNodes.forEach(node => {
 						this.tracked.filter(item => item.id == node.dataset.sableId).forEach((item, index) => delete this.tracked[index])
-						recordData.children += ` ${String(node.tagName).toLocaleLowerCase()}.${node.dataset.sableId}`
+						recordData.children += ` ${node.tagName.toLocaleLowerCase()}.${node.dataset.sableId}`
 					});
 				} else if (record.addedNodes.length != 0 && record.removedNodes.length == 0) {
 					recordData.change = 'added-node';
@@ -32,7 +34,7 @@ class Sable {
 						let childId = this._unique()
 						this.tracked.push({ element: node, id: childId });
 						node.dataset.sableId = childId
-						recordData.children += ` ${String(node.tagName).toLocaleLowerCase()}.${node.dataset.sableId}`
+						recordData.children += ` ${node.tagName.toLocaleLowerCase()}.${node.dataset.sableId}`
 					});
 				} else if (record.type == 'attributes') {
 					recordData.change = 'changed-attribute';
@@ -62,15 +64,20 @@ class Sable {
 	};
 
 	start(element, config) {
-		this.latestConfig = {
-			element: element,
-			config: config
-		};
+		this.latestConfig.element = element;
+		this.latestConfig.config = config;
+
 		this.observer.observe(element, config);
 	};
 
 	stop() {
+		this.latestConfig.snapshot = this.latestConfig.element.cloneNode(true);
 		this.observer.disconnect();
+	}
+
+	revert(id) {
+		this.stop(); // prevent recursion
+		return this.events[id].snapshot;
 	}
 
 	_unique() {

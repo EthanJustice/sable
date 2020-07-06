@@ -1,11 +1,11 @@
-// Not tests right now, just testing to make sure functionality works
+// Not tests right now, just visual testing to make sure functionality works
 
 setTimeout(() => {
 	let p = buildElement('p', 'Generic Test');
 	document.body.querySelector('.tests').appendChild(p);
 	setTimeout(() => {
 		p.id = 'test';
-		p.dataset.test = 'test';
+		p.dataset.test = 'test-text';
 	}, 1000);
 
 	setTimeout(() => {
@@ -17,7 +17,6 @@ setTimeout(() => {
 	}, 1750);
 
 	setTimeout(() => {
-		p.remove();
 		setTimeout(() => sable.stop(), 1000);
 		setTimeout(() => document.body.querySelector('.tests').appendChild(p), 3000);
 	}, 2000);

@@ -12,19 +12,43 @@ sable.start(document.body.querySelector('.tests'), {
 window.addEventListener('sable-change', data => {
 	data = data.detail;
 
-	let change;
+	let change = `${data.index + 1}: `;
 	if (data.change == 'changed-attribute') {
-		change = `Changed attribute: [${data.attribute}=${data.old || '""'}] to [${data.attribute}=${data.new || '""'}]`
-	} else if (data.change == 'added-node') { change = `Added node ${data.children}` }
-	else { change = `Removed node ${data.children}` }
+		change += `Changed attribute: [${data.attribute}=${data.old || '""'}] to [${data.attribute}=${data.new || '""'}]`
+	} else if (data.change == 'added-node') { change += `Added node ${data.children}` }
+	else { change += `Removed node ${data.children}` }
 
 	let row = buildElement('tr', '', { className: `sable-interface ${data.change}` });
 
 	let changeType = buildElement('td', `${change}`);
 	row.appendChild(changeType);
 
-	let target = buildElement('td', `${String(data.target.tagName).toLocaleLowerCase()}.${data.uniqueId}`);
+	let target = buildElement('td', `${data.target.tagName.toLocaleLowerCase()}.${data.uniqueId}`);
 	row.appendChild(target);
 
-	document.body.querySelector('.stream tbody').appendChild(row);
+	let revert = buildElement('input', '', {
+		type: 'button',
+		value: 'Revert',
+		data_revert_id: data.index
+	});
+
+	revert.addEventListener('click', () => {
+		let snapshot = sable.revert(revert.dataset.revertId);
+
+		let snapshotContainer = document.querySelector(`.sable-data`);
+		if (!snapshotContainer) {
+			snapshotContainer = buildElement('div', '', { className: 'sable-data' });
+			document.body.appendChild(snapshotContainer);
+		} else {
+			Object.values(snapshotContainer.children).forEach(child => child.remove());
+		}
+
+		snapshotContainer.appendChild(snapshot);
+
+		revert.disabled = true;
+	});
+
+	row.appendChild(revert);
+
+	document.body.querySelector('.stream tbody').insertBefore(row, document.body.querySelector('.stream tbody tr'));
 });
