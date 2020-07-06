@@ -40,7 +40,7 @@ class Sable {
 					recordData.change = 'changed-attribute';
 					recordData.attribute = record.attributeName;
 					recordData.old = record.oldValue;
-					recordData.new = record.target[record.attributeName];
+					recordData.new = record.target.getAttribute(record.attributeName);
 				}
 
 				this.events.push(recordData);
