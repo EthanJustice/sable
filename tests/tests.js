@@ -3,6 +3,7 @@
 setTimeout(() => {
 	let p = buildElement('p', 'Generic Test');
 	document.body.querySelector('.tests').appendChild(p);
+
 	setTimeout(() => {
 		p.id = 'test';
 		p.dataset.test = 'test-text';
@@ -17,6 +18,7 @@ setTimeout(() => {
 	}, 1750);
 
 	setTimeout(() => {
+		p.remove();
 		setTimeout(() => sable.stop(), 1000);
 		setTimeout(() => document.body.querySelector('.tests').appendChild(p), 3000);
 	}, 2000);

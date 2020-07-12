@@ -41,10 +41,11 @@ class Sable {
 					recordData.attribute = record.attributeName;
 					recordData.old = record.oldValue;
 					recordData.new = record.target.getAttribute(record.attributeName);
-				}
+				};
 
 				this.events.push(recordData);
 
+				this._dispatch(recordData.change, { detail: recordData }, record.target);
 				this._dispatch('sable-change', { detail: recordData }, window);
 
 				return recordData;
