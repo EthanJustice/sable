@@ -1,10 +1,12 @@
 # sable
  interactive page history
 
+Far from ready.
+
 ## Roadmap
 
 + Actual unique ids [bug]
-+ Fix add/remove node revert not working
++ ~~Fix add/remove node revert not working~~
 + Capture innerText/innerHTML changes
 + ~~Events for elements (attribute changed, removed, added, etc.)~~
 

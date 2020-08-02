@@ -44,9 +44,21 @@ window.addEventListener("sable-change", data => {
 
     revert.addEventListener("click", () => {
         let snapshot = sable.revert(revert.dataset.revertId);
-        console.warn(snapshot);
 
+        let record = sable.events[revert.dataset.revertId];
         let snapshotContainer = document.querySelector(`.sable-data`);
+        if (record.change == "removed-node") {
+            if (snapshotContainer) {
+                document
+                    .querySelector(
+                        `${record.children.split(".")[0]}[data-sable-id="${
+                            record.children.split(".")[1]
+                        }"]`
+                    )
+                    .remove();
+            }
+            return;
+        }
         if (!snapshotContainer) {
             snapshotContainer = buildElement("div", "", {
                 className: "sable-data",

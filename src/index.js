@@ -65,10 +65,25 @@ class Sable {
                 }
 
                 if (recordData.change == "changed-attribute") {
-                    recordData.snapshot = Array.from(
-                        record.target.parentElement.cloneNode(true).children
-                    );
+                    recordData.snapshot = Array.from([
+                        record.target.cloneNode(true),
+                    ]);
+                } else if (recordData.change == "removed-node") {
+                    let i;
+                    Array.from(this.events)
+                        .reverse()
+                        .forEach((item, index) => {
+                            item.snapshot.filter(element => {
+                                element.dataset.sableId ==
+                                    recordData.children.split(".")[1];
+                                i = index;
+                            });
+                        });
+                    recordData.snapshot = [this.events[i].target];
                 } else {
+                    recordData.snapshot = Array.from([
+                        record.target.cloneNode(true),
+                    ]);
                 }
 
                 this.events.push(recordData);
