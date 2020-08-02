@@ -4,7 +4,8 @@
 ## Roadmap
 
 + Actual unique ids [bug]
-+ Fix attributes not being changed not being reverted [main]
++ Fix add/remove node revert not working
++ Capture innerText/innerHTML changes
 + ~~Events for elements (attribute changed, removed, added, etc.)~~
 
 ## Docs
