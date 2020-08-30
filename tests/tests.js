@@ -1,23 +1,23 @@
 // Not tests right now, just visual testing to make sure functionality works
 
 setTimeout(() => {
-    let p = buildElement("p", "Generic Test");
-    document.body.querySelector(".tests").appendChild(p);
+    let p = buildElement('p', 'Generic Test');
+    document.body.querySelector('.tests').appendChild(p);
 
     setTimeout(() => {
-        p.id = "test";
+        p.id = 'test';
     }, 1000);
 
     setTimeout(() => {
-        p.dataset.test = "test-text";
+        p.dataset.test = 'test-text';
     }, 1100);
 
     setTimeout(() => {
-        p.id = "";
+        p.id = '';
     }, 1500);
 
     setTimeout(() => {
-        p.id = "test-2";
+        p.id = 'test-2';
     }, 1750);
 
     setTimeout(() => {
@@ -29,14 +29,11 @@ setTimeout(() => {
 // utils
 const buildElement = (type, text, attributes) => {
     let element = document.createElement(type);
-    element.innerText = text || "";
+    element.innerText = text || '';
     if (attributes) {
-        Object.keys(attributes).forEach(item => {
-            if (item.includes("data_")) {
-                element.setAttribute(
-                    item.replace(new RegExp("_", "g"), "-"),
-                    attributes[item]
-                );
+        Object.keys(attributes).forEach((item) => {
+            if (item.includes('data_')) {
+                element.setAttribute(item.replace(new RegExp('_', 'g'), '-'), attributes[item]);
             } else {
                 element[item] = attributes[item];
             }

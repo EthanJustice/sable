@@ -1,99 +1,75 @@
 class Sable {
     constructor() {
         const register = (data, observer) => {
-            data.forEach(record => {
-                if (record.attributeName == "data-sable-id") {
+            data.forEach((record) => {
+                if (record.attributeName == 'data-sable-id') {
                     return;
                 }
                 let id =
-                    this.tracked
-                        .filter(item => item.element == record.target)
-                        .map(item => item.id)[0] || this._unique();
+                    this.tracked.filter((item) => item.element == record.target).map((item) => item.id)[0] ||
+                    this._unique();
 
-                if (!this.tracked.some(item => item.id == id)) {
+                if (!this.tracked.some((item) => item.id == id)) {
                     this.tracked.push({ element: record.target, id: id });
                     record.target.dataset.sableId = id;
                 }
 
                 let recordData = {
                     change: false,
-                    new: "",
-                    old: "",
-                    attribute: "",
+                    new: '',
+                    old: '',
+                    attribute: '',
                     uniqueId: id,
                     target: record.target,
-                    children: "",
+                    children: '',
                     index: this.events.length,
                     snapshot: null,
                 };
 
-                if (
-                    record.addedNodes.length == 0 &&
-                    record.removedNodes.length != 0
-                ) {
-                    recordData.change = "removed-node";
-                    record.removedNodes.forEach(node => {
+                if (record.addedNodes.length == 0 && record.removedNodes.length != 0) {
+                    recordData.change = 'removed-node';
+                    record.removedNodes.forEach((node) => {
                         this.tracked
-                            .filter(item => item.id == node.dataset.sableId)
-                            .forEach(
-                                (item, index) => delete this.tracked[index]
-                            );
-                        recordData.children += ` ${node.tagName.toLocaleLowerCase()}.${
-                            node.dataset.sableId
-                        }`;
+                            .filter((item) => item.id == node.dataset.sableId)
+                            .forEach((item, index) => delete this.tracked[index]);
+                        recordData.children += ` ${node.tagName.toLocaleLowerCase()}.${node.dataset.sableId}`;
                     });
-                } else if (
-                    record.addedNodes.length != 0 &&
-                    record.removedNodes.length == 0
-                ) {
-                    recordData.change = "added-node";
-                    record.addedNodes.forEach(node => {
+                } else if (record.addedNodes.length != 0 && record.removedNodes.length == 0) {
+                    recordData.change = 'added-node';
+                    record.addedNodes.forEach((node) => {
                         let childId = this._unique();
                         this.tracked.push({ element: node, id: childId });
                         node.dataset.sableId = childId;
-                        recordData.children += ` ${node.tagName.toLocaleLowerCase()}.${
-                            node.dataset.sableId
-                        }`;
+                        recordData.children += ` ${node.tagName.toLocaleLowerCase()}.${node.dataset.sableId}`;
                     });
-                } else if (record.type == "attributes") {
-                    recordData.change = "changed-attribute";
+                } else if (record.type == 'attributes') {
+                    recordData.change = 'changed-attribute';
                     recordData.attribute = record.attributeName;
                     recordData.old = record.oldValue;
-                    recordData.new = record.target.getAttribute(
-                        record.attributeName
-                    );
+                    recordData.new = record.target.getAttribute(record.attributeName);
                 }
 
-                if (recordData.change == "changed-attribute") {
-                    recordData.snapshot = Array.from([
-                        record.target.cloneNode(true),
-                    ]);
-                } else if (recordData.change == "removed-node") {
+                if (recordData.change == 'changed-attribute') {
+                    recordData.snapshot = Array.from([record.target.cloneNode(true)]);
+                } else if (recordData.change == 'removed-node') {
                     let i;
                     Array.from(this.events)
                         .reverse()
                         .forEach((item, index) => {
-                            item.snapshot.filter(element => {
-                                element.dataset.sableId ==
-                                    recordData.children.split(".")[1];
+                            item.snapshot.filter((element) => {
+                                element.dataset.sableId == recordData.children.split('.')[1];
                                 i = index;
                             });
                         });
                     recordData.snapshot = [this.events[i].target];
                 } else {
-                    recordData.snapshot = Array.from([
-                        record.target.cloneNode(true),
-                    ]);
+                    recordData.snapshot = Array.from([record.target.cloneNode(true)]);
                 }
 
                 this.events.push(recordData);
 
-                this._dispatch(
-                    recordData.change,
-                    { detail: recordData },
-                    record.target
-                );
-                this._dispatch("sable-change", { detail: recordData }, window);
+                this._dispatch(recordData.change, { detail: recordData }, record.target);
+                this._dispatch('sable-change', { detail: recordData }, window);
 
                 return recordData;
             });

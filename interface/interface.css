@@ -1,38 +1,41 @@
 .sable-interface {
-	padding: 5px;
-	margin: 0.1% auto;
+    padding: 5px;
+    margin: 0.1% auto;
 }
 
 table {
-	width: 100%;
-	border-collapse: collapse;
-	width: 100%;
-	padding: 5px;
-	text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+    width: 100%;
+    padding: 5px;
+    text-align: left;
 }
 
 th {
-	background-color: #404040;
-	color: #fafafa;
-	padding: 5px 10px;
-	font-weight: lighter;
-	font-size: 125%;
+    background-color: #404040;
+    color: #fafafa;
+    padding: 5px 10px;
+    font-weight: lighter;
+    font-size: 125%;
 }
 
 td {
-	padding: 5px;
+    padding: 5px;
 }
 
 .added-node {
-	background: linear-gradient(rgba(0, 250, 154, 0.8), rgba(0, 250, 154, 0.8));
+    background: linear-gradient(rgba(0, 250, 154, 0.8), rgba(0, 250, 154, 0.8));
 }
 
 .removed-node {
-	background: linear-gradient(rgba(220, 20, 60, 0.8), rgba(220, 20, 60, 0.8));
+    background: linear-gradient(rgba(220, 20, 60, 0.8), rgba(220, 20, 60, 0.8));
 }
 
-.sable-interface div > * { opacity: 1; color: green ;}
+.sable-interface div > * {
+    opacity: 1;
+    color: green;
+}
 
 .changed-attribute {
-	background: linear-gradient(rgba(172, 255, 223, 0.8), rgba(172, 255, 223, 0.8));
+    background: linear-gradient(rgba(172, 255, 223, 0.8), rgba(172, 255, 223, 0.8));
 }
