@@ -6,6 +6,11 @@ Sable is a library for visualising document changes, and reverting back to them.
 
 **Somewhat ready.**
 
++ [Docs](#docs)
+  + [Setup](#setup)
+  + [Methods](#methods)
+  + [Hooks](#hooks)
+
 ## Roadmap
 
 + Actual unique ids [bug]
@@ -36,6 +41,37 @@ window.addEventListener('sable-change', (event) => {
     // ...
 });
 ```
+
+### Methods
+
+#### revert(id)
+
+Returns the snapshot of the specified id.  The id can be obtained by listening to the `sable-change` event.
+
+```javascript
+window.addEventListener("sable-change", data => {
+    let snapshot = instance.revert(data.detail.id); // snapshot of the element before its most recent change
+};
+```
+
+#### start(element, config)
+
+Starts observing an element, using the specified [config](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserverInit).
+
+```javascript
+instance.start(document.querySelector('div'), {
+    attributes: true,
+    attributeOldValue: true,
+    characterData: true,
+    characterDataOldValue: true,
+    childList: true,
+    subtree: true,
+});
+```
+
+#### stop()
+
+Stops monitoring the element specified when the `start()` method was called.
 
 ### Hooks
 
@@ -72,7 +108,7 @@ See [Hook Details](#hook-details) for information about the information passed t
 | new | the new value of the attribute that changed (only with `changed-attribute`) |
 | old | the previous value of the attribute that changed (only with `changed-attribute`) |
 | change | the type of change (always `changed-attribute`) |
-| index | index of the event in the list of events |
+| index | index of the event in the list of events (id value) |
 | snapshot | record of the element at the time of the event |
 | target | live node of the element that the event took place on |
 | uniqueId | the target node's unique id |

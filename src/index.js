@@ -1,5 +1,5 @@
 class Sable {
-    constructor(options) {
+    constructor() {
         const register = (data, observer) => {
             data.forEach(record => {
                 if (record.attributeName == "data-sable-id") {
@@ -103,13 +103,6 @@ class Sable {
 
         this.observer = new MutationObserver(register);
         this.latestConfig = {};
-
-        this.options = Object.assign(
-            {
-                // defaults
-            },
-            options
-        );
 
         this.events = [];
     }
