@@ -1,7 +1,10 @@
 # sable
- interactive page history
 
-Far from ready.
+interactive page history
+
+Sable is a library for visualising document changes, and reverting back to them.
+
+**Somewhat ready.**
 
 ## Roadmap
 
@@ -12,7 +15,27 @@ Far from ready.
 
 ## Docs
 
-Incomplete
+### Setup
+
+```javascript
+import Sable from '{LOCATION}';
+
+let sable = new Sable();
+
+// starts tracking an element
+sable.start(document.querySelector('div'), {
+    attributes: true,
+    attributeOldValue: true,
+    characterData: true,
+    characterDataOldValue: true,
+    childList: true,
+    subtree: true,
+});
+
+window.addEventListener('sable-change', (event) => {
+    // ...
+});
+```
 
 ### Hooks
 
