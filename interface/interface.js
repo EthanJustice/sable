@@ -1,3 +1,5 @@
+import Sable from "/src/index.js";
+
 let sable = new Sable();
 
 sable.start(document.body.querySelector(".tests"), {

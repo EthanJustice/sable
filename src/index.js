@@ -141,3 +141,5 @@ class Sable {
         location.dispatchEvent(customEvent);
     }
 }
+
+export default Sable;
